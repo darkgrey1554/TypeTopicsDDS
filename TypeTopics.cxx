@@ -58,7 +58,7 @@ namespace scada_ate
         void SetMaxSizeDataCollectionChar(size_t size) { MaxSizeDataCollectionChar = size; };;
 
         size_t GetMaxSizeDataCollectionInt() { return MaxSizeDataCollectionInt; };
-        size_t GetMaxDataCollectionFloat() { return MaxSizeDataCollectionFloat; };
+        size_t GetMaxSizeDataCollectionFloat() { return MaxSizeDataCollectionFloat; };
         size_t GetMaxSizeDataCollectionDouble() { return MaxSizeDataCollectionDouble; };
         size_t GetMaxSizeDataCollectionChar() { return MaxSizeDataCollectionChar; };
 
@@ -72,11 +72,11 @@ namespace scada_ate
         size_t GetMaxSizeDDSDataExVectorDouble() { return MaxSizeDDSDataExVectorDouble; };
         size_t GetMaxSizeDDSDataExVectorChar() { return MaxSizeDDSDataExVectorChar; };
 
-        void SetMaxSizeDDSAlarmVectorAlarms(size_t size) { MaxSizeDDSAlarmVectorAlarms = size; };
-        void SetMaxSizeDDSExVectorAlarms(size_t size) { MaxSizeDDSExAlarmAlarms = size; };
+        void SetMaxSizeDDSAlarmVectorAlarms(size_t size) { MaxSizeDDSAlarmVectorAlarm = size; };
+        void SetMaxSizeDDSExVectorAlarms(size_t size) { MaxSizeDDSExVectorAlarms = size; };
 
-        size_t GetMaxSizeDDSAlarmAlarms() { return MaxSizeDDSAlarmVectorAlarms; };
-        size_t GetMaxSizeDDSExVectorAlarms() { return MaxSizeDDSExAlarmAlarms; };
+        size_t GetMaxSizeDDSAlarmAlarms() { return MaxSizeDDSAlarmVectorAlarm; };
+        size_t GetMaxSizeDDSExVectorAlarms() { return MaxSizeDDSExVectorAlarms; };
 
     }
 }
