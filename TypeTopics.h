@@ -64,33 +64,34 @@ namespace scada_ate
 {
     namespace typetopics
     {
-         void SetMaxSizeDataCollectionInt(size_t size);
-         void SetMaxSizeDataCollectionFloat(size_t size);
-         void SetMaxSizeDataCollectionDouble(size_t size);
-         void SetMaxSizeDataCollectionChar(size_t size);
+        void SetMaxSizeDataCollectionInt(size_t size);
+        void SetMaxSizeDataCollectionFloat(size_t size);
+        void SetMaxSizeDataCollectionDouble(size_t size);
+        void SetMaxSizeDataCollectionChar(size_t size);
 
-         size_t GetMaxSizeDataCollectionInt();
-         size_t GetMaxDataCollectionFloat();
-         size_t GetMaxSizeDataCollectionDouble();
-         size_t GetMaxSizeDataCollectionChar();
+        size_t GetMaxSizeDataCollectionInt();
+        size_t GetMaxDataCollectionFloat();
+        size_t GetMaxSizeDataCollectionDouble();
+        size_t GetMaxSizeDataCollectionChar();
 
-         void SetMaxSizeDDSDataExVectorInt(size_t size);
-         void SetMaxSizeDDSDataExVectorFloat(size_t size);
-         void SetMaxSizeDDSDataExVectorDouble(size_t size);
-         void SetMaxSizeDDSDataExVectorChar(size_t size);
+        void SetMaxSizeDDSDataExVectorInt(size_t size);
+        void SetMaxSizeDDSDataExVectorFloat(size_t size);
+        void SetMaxSizeDDSDataExVectorDouble(size_t size);
+        void SetMaxSizeDDSDataExVectorChar(size_t size);
 
-         size_t SetMaxSizeDDSDataExVectorInt();
-         size_t SetMaxSizeDDSDataExVectorFloat();
-         size_t SetMaxSizeDDSDataExVectorDouble();
-         size_t SetMaxSizeDDSDataExVectorChar();
+        size_t SetMaxSizeDDSDataExVectorInt();
+        size_t SetMaxSizeDDSDataExVectorFloat();
+        size_t SetMaxSizeDDSDataExVectorDouble();
+        size_t SetMaxSizeDDSDataExVectorChar();
 
-         void SetMaxSizeDDSAlarmAlarms(size_t size);
-         void SetMaxSizeDDSExVectorAlarms(size_t size);
+        void SetMaxSizeDDSAlarmAlarms(size_t size);
+        void SetMaxSizeDDSExVectorAlarms(size_t size);
 
-         size_t GetMaxSizeDDSAlarmAlarms();
-         size_t GetMaxSizeDDSExVectorAlarms();
+        size_t GetMaxSizeDDSAlarmAlarms();
+        size_t GetMaxSizeDDSExVectorAlarms();
     }
 }
+
 
 /*!
  * @brief This class represents the structure TopicCommand defined by the user in the IDL file.
@@ -2685,26 +2686,26 @@ public:
      * @param _quality New value to be copied in member quality
      */
     eProsima_user_DllExport void quality(
-            const std::vector<char>& _quality);
+            const std::vector<uint32_t>& _quality);
 
     /*!
      * @brief This function moves the value in member quality
      * @param _quality New value to be moved in member quality
      */
     eProsima_user_DllExport void quality(
-            std::vector<char>&& _quality);
+            std::vector<uint32_t>&& _quality);
 
     /*!
      * @brief This function returns a constant reference to member quality
      * @return Constant reference to member quality
      */
-    eProsima_user_DllExport const std::vector<char>& quality() const;
+    eProsima_user_DllExport const std::vector<uint32_t>& quality() const;
 
     /*!
      * @brief This function returns a reference to member quality
      * @return Reference to member quality
      */
-    eProsima_user_DllExport std::vector<char>& quality();
+    eProsima_user_DllExport std::vector<uint32_t>& quality();
 
     /*!
      * @brief This function returns the maximum serialized size of an object
@@ -2768,7 +2769,7 @@ private:
     int64_t m_time_source;
     int64_t m_time_service;
     std::vector<uint32_t> m_alarms;
-    std::vector<char> m_quality;
+    std::vector<uint32_t> m_quality;
 };
 /*!
  * @brief This class represents the structure DDSExAlarm defined by the user in the IDL file.

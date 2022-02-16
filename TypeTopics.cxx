@@ -81,6 +81,7 @@ namespace scada_ate
     }
 }
 
+
 TopicCommand::TopicCommand()
 {
     // m_time_messege com.eprosima.idl.parser.typecode.PrimitiveTypeCode@319b92f3
@@ -1219,9 +1220,9 @@ void DataCollectionFloat::serializeKey(
 
 DataCollectionDouble::DataCollectionDouble()
 {
-    // m_value com.eprosima.idl.parser.typecode.SequenceTypeCode@11c20519
+    // m_value com.eprosima.idl.parser.typecode.SequenceTypeCode@4e41089d
 
-    // m_quality com.eprosima.idl.parser.typecode.SequenceTypeCode@70beb599
+    // m_quality com.eprosima.idl.parser.typecode.SequenceTypeCode@32a068d1
 
 
     // Just to register all known types
@@ -3200,7 +3201,7 @@ size_t DDSDataEx::getMaxCdrSerializedSize(
     current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
 
 
-    for(size_t a = 0; a<scada_ate::typetopics::GetMaxSizeDDSDataExVectorInt(); ++a)
+    for(size_t a = 0; a < scada_ate::typetopics::GetMaxSizeDDSDataExVectorInt(); ++a)
     {
         current_alignment += DataExInt::getMaxCdrSerializedSize(current_alignment);}
 
@@ -3805,13 +3806,13 @@ size_t DDSAlarm::getMaxCdrSerializedSize(
 
     current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
 
-    current_alignment += (scada_ate::typetopics::GetMaxSizeDDSAlarmAlarms() * 4) + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
+    current_alignment += (scada_ate::typetopics::GetMaxSizeDDSExVectorAlarms() * 4) + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
 
 
 
     current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
 
-    current_alignment += (scada_ate::typetopics::GetMaxSizeDDSAlarmAlarms() * 1) + eprosima::fastcdr::Cdr::alignment(current_alignment, 1);
+    current_alignment += (scada_ate::typetopics::GetMaxSizeDDSExVectorAlarms() * 4) + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
 
 
 
@@ -3846,7 +3847,7 @@ size_t DDSAlarm::getCdrSerializedSize(
 
     if (data.quality().size() > 0)
     {
-        current_alignment += (data.quality().size() * 1) + eprosima::fastcdr::Cdr::alignment(current_alignment, 1);
+        current_alignment += (data.quality().size() * 4) + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
     }
 
 
@@ -3974,7 +3975,7 @@ std::vector<uint32_t>& DDSAlarm::alarms()
  * @param _quality New value to be copied in member quality
  */
 void DDSAlarm::quality(
-        const std::vector<char>& _quality)
+        const std::vector<uint32_t>& _quality)
 {
     m_quality = _quality;
 }
@@ -3984,7 +3985,7 @@ void DDSAlarm::quality(
  * @param _quality New value to be moved in member quality
  */
 void DDSAlarm::quality(
-        std::vector<char>&& _quality)
+        std::vector<uint32_t>&& _quality)
 {
     m_quality = std::move(_quality);
 }
@@ -3993,7 +3994,7 @@ void DDSAlarm::quality(
  * @brief This function returns a constant reference to member quality
  * @return Constant reference to member quality
  */
-const std::vector<char>& DDSAlarm::quality() const
+const std::vector<uint32_t>& DDSAlarm::quality() const
 {
     return m_quality;
 }
@@ -4002,7 +4003,7 @@ const std::vector<char>& DDSAlarm::quality() const
  * @brief This function returns a reference to member quality
  * @return Reference to member quality
  */
-std::vector<char>& DDSAlarm::quality()
+std::vector<uint32_t>& DDSAlarm::quality()
 {
     return m_quality;
 }
@@ -4096,7 +4097,7 @@ size_t DDSExAlarm::getMaxCdrSerializedSize(
     current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
 
 
-    for(size_t a = 0; a < scada_ate::typetopics::GetMaxSizeDDSExVectorAlarms(); ++a)
+    for(size_t a = 0; a < 100; ++a)
     {
         current_alignment += Alarm::getMaxCdrSerializedSize(current_alignment);}
 

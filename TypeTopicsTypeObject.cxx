@@ -3986,7 +3986,7 @@ const TypeObject* GetMinimalDDSAlarmObject()
     mst_quality.common().member_flags().IS_MUST_UNDERSTAND(false);
     mst_quality.common().member_flags().IS_KEY(false);
     mst_quality.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    mst_quality.common().member_type_id(*TypeObjectFactory::get_instance()->get_sequence_identifier("char", 0, false));
+    mst_quality.common().member_type_id(*TypeObjectFactory::get_instance()->get_sequence_identifier("uint32_t", 0, false));
 
 
     MD5 quality_hash("quality");
@@ -4117,7 +4117,7 @@ const TypeObject* GetCompleteDDSAlarmObject()
     cst_quality.common().member_flags().IS_MUST_UNDERSTAND(false);
     cst_quality.common().member_flags().IS_KEY(false);
     cst_quality.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    cst_quality.common().member_type_id(*TypeObjectFactory::get_instance()->get_sequence_identifier("char", 0, true));
+    cst_quality.common().member_type_id(*TypeObjectFactory::get_instance()->get_sequence_identifier("uint32_t", 0, true));
 
 
     cst_quality.detail().name("quality");
