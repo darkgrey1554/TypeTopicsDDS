@@ -69,6 +69,11 @@ eProsima_user_DllExport const TypeObject* GetDataCollectionDoubleObject(bool com
 eProsima_user_DllExport const TypeObject* GetMinimalDataCollectionDoubleObject();
 eProsima_user_DllExport const TypeObject* GetCompleteDataCollectionDoubleObject();
 
+eProsima_user_DllExport const TypeIdentifier* GetDataCharIdentifier(bool complete = false);
+eProsima_user_DllExport const TypeObject* GetDataCharObject(bool complete = false);
+eProsima_user_DllExport const TypeObject* GetMinimalDataCharObject();
+eProsima_user_DllExport const TypeObject* GetCompleteDataCharObject();
+
 eProsima_user_DllExport const TypeIdentifier* GetDataCollectionCharIdentifier(bool complete = false);
 eProsima_user_DllExport const TypeObject* GetDataCollectionCharObject(bool complete = false);
 eProsima_user_DllExport const TypeObject* GetMinimalDataCollectionCharObject();

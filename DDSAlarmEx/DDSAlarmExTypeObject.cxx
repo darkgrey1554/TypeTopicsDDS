@@ -120,6 +120,31 @@ const TypeObject* GetMinimalAlarmObject()
     }
     type_object->minimal().struct_type().member_seq().emplace_back(mst_time_source);
 
+    MinimalStructMember mst_id_tag;
+    mst_id_tag.common().member_id(memberId++);
+    mst_id_tag.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    mst_id_tag.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    mst_id_tag.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    mst_id_tag.common().member_flags().IS_OPTIONAL(false);
+    mst_id_tag.common().member_flags().IS_MUST_UNDERSTAND(false);
+    mst_id_tag.common().member_flags().IS_KEY(false);
+    mst_id_tag.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    {
+        std::string cppType = "uint32_t";
+        if (cppType == "long double")
+        {
+            cppType = "longdouble";
+        }
+        mst_id_tag.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier(cppType, false));
+    }
+
+    MD5 id_tag_hash("id_tag");
+    for(int i = 0; i < 4; ++i)
+    {
+        mst_id_tag.detail().name_hash()[i] = id_tag_hash.digest[i];
+    }
+    type_object->minimal().struct_type().member_seq().emplace_back(mst_id_tag);
+
     MinimalStructMember mst_value;
     mst_value.common().member_id(memberId++);
     mst_value.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
@@ -243,6 +268,28 @@ const TypeObject* GetCompleteAlarmObject()
     cst_time_source.detail().name("time_source");
 
     type_object->complete().struct_type().member_seq().emplace_back(cst_time_source);
+
+    CompleteStructMember cst_id_tag;
+    cst_id_tag.common().member_id(memberId++);
+    cst_id_tag.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    cst_id_tag.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    cst_id_tag.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    cst_id_tag.common().member_flags().IS_OPTIONAL(false);
+    cst_id_tag.common().member_flags().IS_MUST_UNDERSTAND(false);
+    cst_id_tag.common().member_flags().IS_KEY(false);
+    cst_id_tag.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    {
+        std::string cppType = "uint32_t";
+        if (cppType == "long double")
+        {
+            cppType = "longdouble";
+        }
+        cst_id_tag.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier(cppType, false));
+    }
+
+    cst_id_tag.detail().name("id_tag");
+
+    type_object->complete().struct_type().member_seq().emplace_back(cst_id_tag);
 
     CompleteStructMember cst_value;
     cst_value.common().member_id(memberId++);

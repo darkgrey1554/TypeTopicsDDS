@@ -50,6 +50,9 @@ void registerDDSDataTypes()
     factory->add_type_object("DataCollectionDouble", GetDataCollectionDoubleIdentifier(true), GetDataCollectionDoubleObject(true));
     factory->add_type_object("DataCollectionDouble", GetDataCollectionDoubleIdentifier(false), GetDataCollectionDoubleObject(false));
 
+    factory->add_type_object("DataChar", GetDataCharIdentifier(true), GetDataCharObject(true));
+    factory->add_type_object("DataChar", GetDataCharIdentifier(false), GetDataCharObject(false));
+
     factory->add_type_object("DataCollectionChar", GetDataCollectionCharIdentifier(true), GetDataCollectionCharObject(true));
     factory->add_type_object("DataCollectionChar", GetDataCollectionCharIdentifier(false), GetDataCollectionCharObject(false));
 
@@ -661,6 +664,172 @@ const TypeObject* GetCompleteDataCollectionDoubleObject()
     return TypeObjectFactory::get_instance()->get_type_object("DataCollectionDouble", true);
 }
 
+const TypeIdentifier* GetDataCharIdentifier(bool complete)
+{
+    const TypeIdentifier * c_identifier = TypeObjectFactory::get_instance()->get_type_identifier("DataChar", complete);
+    if (c_identifier != nullptr && (!complete || c_identifier->_d() == EK_COMPLETE))
+    {
+        return c_identifier;
+    }
+
+    GetDataCharObject(complete); // Generated inside
+    return TypeObjectFactory::get_instance()->get_type_identifier("DataChar", complete);
+}
+
+const TypeObject* GetDataCharObject(bool complete)
+{
+    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("DataChar", complete);
+    if (c_type_object != nullptr)
+    {
+        return c_type_object;
+    }
+    else if (complete)
+    {
+        return GetCompleteDataCharObject();
+    }
+    //else
+    return GetMinimalDataCharObject();
+}
+
+const TypeObject* GetMinimalDataCharObject()
+{
+    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("DataChar", false);
+    if (c_type_object != nullptr)
+    {
+        return c_type_object;
+    }
+
+    TypeObject *type_object = new TypeObject();
+    type_object->_d(EK_MINIMAL);
+    type_object->minimal()._d(TK_STRUCTURE);
+
+    type_object->minimal().struct_type().struct_flags().IS_FINAL(false);
+    type_object->minimal().struct_type().struct_flags().IS_APPENDABLE(false);
+    type_object->minimal().struct_type().struct_flags().IS_MUTABLE(false);
+    type_object->minimal().struct_type().struct_flags().IS_NESTED(false);
+    type_object->minimal().struct_type().struct_flags().IS_AUTOID_HASH(false); // Unsupported
+
+    MemberId memberId = 0;
+    MinimalStructMember mst_value;
+    mst_value.common().member_id(memberId++);
+    mst_value.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    mst_value.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    mst_value.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    mst_value.common().member_flags().IS_OPTIONAL(false);
+    mst_value.common().member_flags().IS_MUST_UNDERSTAND(false);
+    mst_value.common().member_flags().IS_KEY(false);
+    mst_value.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    mst_value.common().member_type_id(*TypeObjectFactory::get_instance()->get_sequence_identifier("char", 0, false));
+
+
+    MD5 value_hash("value");
+    for(int i = 0; i < 4; ++i)
+    {
+        mst_value.detail().name_hash()[i] = value_hash.digest[i];
+    }
+    type_object->minimal().struct_type().member_seq().emplace_back(mst_value);
+
+
+    // Header
+    // TODO Inheritance
+    //type_object->minimal().struct_type().header().base_type()._d(EK_MINIMAL);
+    //type_object->minimal().struct_type().header().base_type().equivalence_hash()[0..13];
+
+    TypeIdentifier identifier;
+    identifier._d(EK_MINIMAL);
+
+    SerializedPayload_t payload(static_cast<uint32_t>(
+        MinimalStructType::getCdrSerializedSize(type_object->minimal().struct_type()) + 4));
+    eprosima::fastcdr::FastBuffer fastbuffer((char*) payload.data, payload.max_size);
+    // Fixed endian (Page 221, EquivalenceHash definition of Extensible and Dynamic Topic Types for DDS document)
+    eprosima::fastcdr::Cdr ser(
+        fastbuffer, eprosima::fastcdr::Cdr::LITTLE_ENDIANNESS,
+        eprosima::fastcdr::Cdr::DDS_CDR); // Object that serializes the data.
+    payload.encapsulation = CDR_LE;
+
+    type_object->serialize(ser);
+    payload.length = (uint32_t)ser.getSerializedDataLength(); //Get the serialized length
+    MD5 objectHash;
+    objectHash.update((char*)payload.data, payload.length);
+    objectHash.finalize();
+    for(int i = 0; i < 14; ++i)
+    {
+        identifier.equivalence_hash()[i] = objectHash.digest[i];
+    }
+
+    TypeObjectFactory::get_instance()->add_type_object("DataChar", &identifier, type_object);
+    delete type_object;
+    return TypeObjectFactory::get_instance()->get_type_object("DataChar", false);
+}
+
+const TypeObject* GetCompleteDataCharObject()
+{
+    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("DataChar", true);
+    if (c_type_object != nullptr && c_type_object->_d() == EK_COMPLETE)
+    {
+        return c_type_object;
+    }
+
+    TypeObject *type_object = new TypeObject();
+    type_object->_d(EK_COMPLETE);
+    type_object->complete()._d(TK_STRUCTURE);
+
+    type_object->complete().struct_type().struct_flags().IS_FINAL(false);
+    type_object->complete().struct_type().struct_flags().IS_APPENDABLE(false);
+    type_object->complete().struct_type().struct_flags().IS_MUTABLE(false);
+    type_object->complete().struct_type().struct_flags().IS_NESTED(false);
+    type_object->complete().struct_type().struct_flags().IS_AUTOID_HASH(false); // Unsupported
+
+    MemberId memberId = 0;
+    CompleteStructMember cst_value;
+    cst_value.common().member_id(memberId++);
+    cst_value.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    cst_value.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    cst_value.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    cst_value.common().member_flags().IS_OPTIONAL(false);
+    cst_value.common().member_flags().IS_MUST_UNDERSTAND(false);
+    cst_value.common().member_flags().IS_KEY(false);
+    cst_value.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    cst_value.common().member_type_id(*TypeObjectFactory::get_instance()->get_sequence_identifier("char", 0, true));
+
+
+    cst_value.detail().name("value");
+
+    type_object->complete().struct_type().member_seq().emplace_back(cst_value);
+
+
+    // Header
+    type_object->complete().struct_type().header().detail().type_name("DataChar");
+    // TODO inheritance
+
+
+    TypeIdentifier identifier;
+    identifier._d(EK_COMPLETE);
+
+    SerializedPayload_t payload(static_cast<uint32_t>(
+        CompleteStructType::getCdrSerializedSize(type_object->complete().struct_type()) + 4));
+    eprosima::fastcdr::FastBuffer fastbuffer((char*) payload.data, payload.max_size);
+    // Fixed endian (Page 221, EquivalenceHash definition of Extensible and Dynamic Topic Types for DDS document)
+    eprosima::fastcdr::Cdr ser(
+        fastbuffer, eprosima::fastcdr::Cdr::LITTLE_ENDIANNESS,
+        eprosima::fastcdr::Cdr::DDS_CDR); // Object that serializes the data.
+    payload.encapsulation = CDR_LE;
+
+    type_object->serialize(ser);
+    payload.length = (uint32_t)ser.getSerializedDataLength(); //Get the serialized length
+    MD5 objectHash;
+    objectHash.update((char*)payload.data, payload.length);
+    objectHash.finalize();
+    for(int i = 0; i < 14; ++i)
+    {
+        identifier.equivalence_hash()[i] = objectHash.digest[i];
+    }
+
+    TypeObjectFactory::get_instance()->add_type_object("DataChar", &identifier, type_object);
+    delete type_object;
+    return TypeObjectFactory::get_instance()->get_type_object("DataChar", true);
+}
+
 const TypeIdentifier* GetDataCollectionCharIdentifier(bool complete)
 {
     const TypeIdentifier * c_identifier = TypeObjectFactory::get_instance()->get_type_identifier("DataCollectionChar", complete);
@@ -716,7 +885,7 @@ const TypeObject* GetMinimalDataCollectionCharObject()
     mst_value.common().member_flags().IS_MUST_UNDERSTAND(false);
     mst_value.common().member_flags().IS_KEY(false);
     mst_value.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    mst_value.common().member_type_id(*TypeObjectFactory::get_instance()->get_sequence_identifier("char", 0, false));
+    mst_value.common().member_type_id(*TypeObjectFactory::get_instance()->get_sequence_identifier("DataChar", 0, false));
 
 
     MD5 value_hash("value");
@@ -806,7 +975,7 @@ const TypeObject* GetCompleteDataCollectionCharObject()
     cst_value.common().member_flags().IS_MUST_UNDERSTAND(false);
     cst_value.common().member_flags().IS_KEY(false);
     cst_value.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    cst_value.common().member_type_id(*TypeObjectFactory::get_instance()->get_sequence_identifier("char", 0, true));
+    cst_value.common().member_type_id(*TypeObjectFactory::get_instance()->get_sequence_identifier("DataChar", 0, true));
 
 
     cst_value.detail().name("value");

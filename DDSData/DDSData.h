@@ -68,14 +68,17 @@ namespace scada_ate
         void SetMaxSizeDataCollectionFloat(size_t size);
         void SetMaxSizeDataCollectionDouble(size_t size);
         void SetMaxSizeDataCollectionChar(size_t size);
+        void SetMaxSizeDataChar(size_t size);
 
         size_t GetMaxSizeDataCollectionInt();
         size_t GetMaxDataCollectionFloat();
         size_t GetMaxSizeDataCollectionDouble();
         size_t GetMaxSizeDataCollectionChar();
+        size_t SetMaxSizeDataChar();
 
-     }
+    }
 }
+
 /*!
  * @brief This class represents the structure DataCollectionInt defined by the user in the IDL file.
  * @ingroup DDSDATA
@@ -554,6 +557,139 @@ private:
     std::vector<char> m_quality;
 };
 /*!
+ * @brief This class represents the structure DataChar defined by the user in the IDL file.
+ * @ingroup DDSDATA
+ */
+class DataChar
+{
+public:
+
+    /*!
+     * @brief Default constructor.
+     */
+    eProsima_user_DllExport DataChar();
+
+    /*!
+     * @brief Default destructor.
+     */
+    eProsima_user_DllExport ~DataChar();
+
+    /*!
+     * @brief Copy constructor.
+     * @param x Reference to the object DataChar that will be copied.
+     */
+    eProsima_user_DllExport DataChar(
+            const DataChar& x);
+
+    /*!
+     * @brief Move constructor.
+     * @param x Reference to the object DataChar that will be copied.
+     */
+    eProsima_user_DllExport DataChar(
+            DataChar&& x);
+
+    /*!
+     * @brief Copy assignment.
+     * @param x Reference to the object DataChar that will be copied.
+     */
+    eProsima_user_DllExport DataChar& operator =(
+            const DataChar& x);
+
+    /*!
+     * @brief Move assignment.
+     * @param x Reference to the object DataChar that will be copied.
+     */
+    eProsima_user_DllExport DataChar& operator =(
+            DataChar&& x);
+
+    /*!
+     * @brief This function copies the value in member value
+     * @param _value New value to be copied in member value
+     */
+    eProsima_user_DllExport void value(
+            const std::vector<char>& _value);
+
+    /*!
+     * @brief This function moves the value in member value
+     * @param _value New value to be moved in member value
+     */
+    eProsima_user_DllExport void value(
+            std::vector<char>&& _value);
+
+    /*!
+     * @brief This function returns a constant reference to member value
+     * @return Constant reference to member value
+     */
+    eProsima_user_DllExport const std::vector<char>& value() const;
+
+    /*!
+     * @brief This function returns a reference to member value
+     * @return Reference to member value
+     */
+    eProsima_user_DllExport std::vector<char>& value();
+
+    /*!
+     * @brief This function returns the maximum serialized size of an object
+     * depending on the buffer alignment.
+     * @param current_alignment Buffer alignment.
+     * @return Maximum serialized size.
+     */
+    eProsima_user_DllExport static size_t getMaxCdrSerializedSize(
+            size_t current_alignment = 0);
+
+    /*!
+     * @brief This function returns the serialized size of a data depending on the buffer alignment.
+     * @param data Data which is calculated its serialized size.
+     * @param current_alignment Buffer alignment.
+     * @return Serialized size.
+     */
+    eProsima_user_DllExport static size_t getCdrSerializedSize(
+            const DataChar& data,
+            size_t current_alignment = 0);
+
+
+    /*!
+     * @brief This function serializes an object using CDR serialization.
+     * @param cdr CDR serialization object.
+     */
+    eProsima_user_DllExport void serialize(
+            eprosima::fastcdr::Cdr& cdr) const;
+
+    /*!
+     * @brief This function deserializes an object using CDR serialization.
+     * @param cdr CDR serialization object.
+     */
+    eProsima_user_DllExport void deserialize(
+            eprosima::fastcdr::Cdr& cdr);
+
+
+
+    /*!
+     * @brief This function returns the maximum serialized size of the Key of an object
+     * depending on the buffer alignment.
+     * @param current_alignment Buffer alignment.
+     * @return Maximum serialized size.
+     */
+    eProsima_user_DllExport static size_t getKeyMaxCdrSerializedSize(
+            size_t current_alignment = 0);
+
+    /*!
+     * @brief This function tells you if the Key has been defined for this type
+     */
+    eProsima_user_DllExport static bool isKeyDefined();
+
+    /*!
+     * @brief This function serializes the key members of an object using CDR serialization.
+     * @param cdr CDR serialization object.
+     */
+    eProsima_user_DllExport void serializeKey(
+            eprosima::fastcdr::Cdr& cdr) const;
+
+private:
+
+    std::vector<char> m_value;
+};
+/*!
  * @brief This class represents the structure DataCollectionChar defined by the user in the IDL file.
  * @ingroup DDSDATA
  */
@@ -604,26 +740,26 @@ public:
      * @param _value New value to be copied in member value
      */
     eProsima_user_DllExport void value(
-            const std::vector<char>& _value);
+            const std::vector<DataChar>& _value);
 
     /*!
      * @brief This function moves the value in member value
      * @param _value New value to be moved in member value
      */
     eProsima_user_DllExport void value(
-            std::vector<char>&& _value);
+            std::vector<DataChar>&& _value);
 
     /*!
      * @brief This function returns a constant reference to member value
      * @return Constant reference to member value
      */
-    eProsima_user_DllExport const std::vector<char>& value() const;
+    eProsima_user_DllExport const std::vector<DataChar>& value() const;
 
     /*!
      * @brief This function returns a reference to member value
      * @return Reference to member value
      */
-    eProsima_user_DllExport std::vector<char>& value();
+    eProsima_user_DllExport std::vector<DataChar>& value();
     /*!
      * @brief This function copies the value in member quality
      * @param _quality New value to be copied in member quality
@@ -709,7 +845,7 @@ public:
 
 private:
 
-    std::vector<char> m_value;
+    std::vector<DataChar> m_value;
     std::vector<char> m_quality;
 };
 /*!

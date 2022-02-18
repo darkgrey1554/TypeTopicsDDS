@@ -31,7 +31,7 @@ struct DataExChar
 {
 	long long time_source;
 	unsigned long id_tag;
-	char value;
+	sequence<char> value;
 	char quality;
 };
 

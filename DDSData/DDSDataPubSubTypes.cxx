@@ -448,6 +448,146 @@ bool DataCollectionDoublePubSubType::getKey(
     return true;
 }
 
+DataCharPubSubType::DataCharPubSubType()
+{
+    setName("DataChar");
+    auto type_size = DataChar::getMaxCdrSerializedSize();
+    type_size += eprosima::fastcdr::Cdr::alignment(type_size, 4); /* possible submessage alignment */
+    m_typeSize = static_cast<uint32_t>(type_size) + 4; /*encapsulation*/
+    m_isGetKeyDefined = DataChar::isKeyDefined();
+    size_t keyLength = DataChar::getKeyMaxCdrSerializedSize() > 16 ?
+            DataChar::getKeyMaxCdrSerializedSize() : 16;
+    m_keyBuffer = reinterpret_cast<unsigned char*>(malloc(keyLength));
+    memset(m_keyBuffer, 0, keyLength);
+}
+
+DataCharPubSubType::~DataCharPubSubType()
+{
+    if (m_keyBuffer != nullptr)
+    {
+        free(m_keyBuffer);
+    }
+}
+
+bool DataCharPubSubType::serialize(
+        void* data,
+        SerializedPayload_t* payload)
+{
+    DataChar* p_type = static_cast<DataChar*>(data);
+
+    // Object that manages the raw buffer.
+    eprosima::fastcdr::FastBuffer fastbuffer(reinterpret_cast<char*>(payload->data), payload->max_size);
+    // Object that serializes the data.
+    eprosima::fastcdr::Cdr ser(fastbuffer, eprosima::fastcdr::Cdr::DEFAULT_ENDIAN, eprosima::fastcdr::Cdr::DDS_CDR);
+    payload->encapsulation = ser.endianness() == eprosima::fastcdr::Cdr::BIG_ENDIANNESS ? CDR_BE : CDR_LE;
+    // Serialize encapsulation
+    ser.serialize_encapsulation();
+
+    try
+    {
+        // Serialize the object.
+        p_type->serialize(ser);
+    }
+    catch (eprosima::fastcdr::exception::NotEnoughMemoryException& /*exception*/)
+    {
+        return false;
+    }
+
+    // Get the serialized length
+    payload->length = static_cast<uint32_t>(ser.getSerializedDataLength());
+    return true;
+}
+
+bool DataCharPubSubType::deserialize(
+        SerializedPayload_t* payload,
+        void* data)
+{
+    //Convert DATA to pointer of your type
+    DataChar* p_type = static_cast<DataChar*>(data);
+
+    // Object that manages the raw buffer.
+    eprosima::fastcdr::FastBuffer fastbuffer(reinterpret_cast<char*>(payload->data), payload->length);
+
+    // Object that deserializes the data.
+    eprosima::fastcdr::Cdr deser(fastbuffer, eprosima::fastcdr::Cdr::DEFAULT_ENDIAN, eprosima::fastcdr::Cdr::DDS_CDR);
+
+    // Deserialize encapsulation.
+    deser.read_encapsulation();
+    payload->encapsulation = deser.endianness() == eprosima::fastcdr::Cdr::BIG_ENDIANNESS ? CDR_BE : CDR_LE;
+
+    try
+    {
+        // Deserialize the object.
+        p_type->deserialize(deser);
+    }
+    catch (eprosima::fastcdr::exception::NotEnoughMemoryException& /*exception*/)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+std::function<uint32_t()> DataCharPubSubType::getSerializedSizeProvider(
+        void* data)
+{
+    return [data]() -> uint32_t
+           {
+               return static_cast<uint32_t>(type::getCdrSerializedSize(*static_cast<DataChar*>(data))) +
+                      4u /*encapsulation*/;
+           };
+}
+
+void* DataCharPubSubType::createData()
+{
+    return reinterpret_cast<void*>(new DataChar());
+}
+
+void DataCharPubSubType::deleteData(
+        void* data)
+{
+    delete(reinterpret_cast<DataChar*>(data));
+}
+
+bool DataCharPubSubType::getKey(
+        void* data,
+        InstanceHandle_t* handle,
+        bool force_md5)
+{
+    if (!m_isGetKeyDefined)
+    {
+        return false;
+    }
+
+    DataChar* p_type = static_cast<DataChar*>(data);
+
+    // Object that manages the raw buffer.
+    eprosima::fastcdr::FastBuffer fastbuffer(reinterpret_cast<char*>(m_keyBuffer),
+            DataChar::getKeyMaxCdrSerializedSize());
+
+    // Object that serializes the data.
+    eprosima::fastcdr::Cdr ser(fastbuffer, eprosima::fastcdr::Cdr::BIG_ENDIANNESS);
+    p_type->serializeKey(ser);
+    if (force_md5 || DataChar::getKeyMaxCdrSerializedSize() > 16)
+    {
+        m_md5.init();
+        m_md5.update(m_keyBuffer, static_cast<unsigned int>(ser.getSerializedDataLength()));
+        m_md5.finalize();
+        for (uint8_t i = 0; i < 16; ++i)
+        {
+            handle->value[i] = m_md5.digest[i];
+        }
+    }
+    else
+    {
+        for (uint8_t i = 0; i < 16; ++i)
+        {
+            handle->value[i] = m_keyBuffer[i];
+        }
+    }
+    return true;
+}
+
 DataCollectionCharPubSubType::DataCollectionCharPubSubType()
 {
     setName("DataCollectionChar");

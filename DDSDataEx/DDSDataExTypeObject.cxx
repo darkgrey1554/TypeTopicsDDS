@@ -1120,14 +1120,8 @@ const TypeObject* GetMinimalDataExCharObject()
     mst_value.common().member_flags().IS_MUST_UNDERSTAND(false);
     mst_value.common().member_flags().IS_KEY(false);
     mst_value.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    {
-        std::string cppType = "char";
-        if (cppType == "long double")
-        {
-            cppType = "longdouble";
-        }
-        mst_value.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier(cppType, false));
-    }
+    mst_value.common().member_type_id(*TypeObjectFactory::get_instance()->get_sequence_identifier("char", 0, false));
+
 
     MD5 value_hash("value");
     for(int i = 0; i < 4; ++i)
@@ -1266,14 +1260,8 @@ const TypeObject* GetCompleteDataExCharObject()
     cst_value.common().member_flags().IS_MUST_UNDERSTAND(false);
     cst_value.common().member_flags().IS_KEY(false);
     cst_value.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    {
-        std::string cppType = "char";
-        if (cppType == "long double")
-        {
-            cppType = "longdouble";
-        }
-        cst_value.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier(cppType, false));
-    }
+    cst_value.common().member_type_id(*TypeObjectFactory::get_instance()->get_sequence_identifier("char", 0, true));
+
 
     cst_value.detail().name("value");
 

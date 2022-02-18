@@ -43,16 +43,19 @@ namespace scada_ate
         size_t MaxSizeDataCollectionFloat = 0;
         size_t MaxSizeDataCollectionDouble = 0;
         size_t MaxSizeDataCollectionChar = 0;
+        size_t MaxSizeDataChar = 0;
 
         void SetMaxSizeDataCollectionInt(size_t size) { MaxSizeDataCollectionInt = size; };
-        void SetMaxSizeDataCollectionFloat(size_t size) { MaxSizeDataCollectionFloat = size; };;
-        void SetMaxSizeDataCollectionDouble(size_t size) { MaxSizeDataCollectionDouble = size; };;
-        void SetMaxSizeDataCollectionChar(size_t size) { MaxSizeDataCollectionChar = size; };;
+        void SetMaxSizeDataCollectionFloat(size_t size) { MaxSizeDataCollectionFloat = size; };
+        void SetMaxSizeDataCollectionDouble(size_t size) { MaxSizeDataCollectionDouble = size; };
+        void SetMaxSizeDataCollectionChar(size_t size) { MaxSizeDataCollectionChar = size; };
+        void SetMaxSizeDataChar(size_t size) { MaxSizeDataChar = size; };
 
         size_t GetMaxSizeDataCollectionInt() { return MaxSizeDataCollectionInt; };
         size_t GetMaxSizeDataCollectionFloat() { return MaxSizeDataCollectionFloat; };
         size_t GetMaxSizeDataCollectionDouble() { return MaxSizeDataCollectionDouble; };
         size_t GetMaxSizeDataCollectionChar() { return MaxSizeDataCollectionChar; };
+        size_t GetMaxSizeDataChar() { return MaxSizeDataChar; };
 
     }
 }
@@ -711,11 +714,162 @@ void DataCollectionDouble::serializeKey(
       
 }
 
+DataChar::DataChar()
+{
+    // m_value com.eprosima.idl.parser.typecode.SequenceTypeCode@2473b9ce
+
+
+    // Just to register all known types
+    registerDDSDataTypes();
+}
+
+DataChar::~DataChar()
+{
+}
+
+DataChar::DataChar(
+        const DataChar& x)
+{
+    m_value = x.m_value;
+}
+
+DataChar::DataChar(
+        DataChar&& x)
+{
+    m_value = std::move(x.m_value);
+}
+
+DataChar& DataChar::operator =(
+        const DataChar& x)
+{
+
+    m_value = x.m_value;
+
+    return *this;
+}
+
+DataChar& DataChar::operator =(
+        DataChar&& x)
+{
+
+    m_value = std::move(x.m_value);
+
+    return *this;
+}
+
+size_t DataChar::getMaxCdrSerializedSize(
+        size_t current_alignment)
+{
+    size_t initial_alignment = current_alignment;
+
+
+    current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
+
+    current_alignment += (scada_ate::typetopics::GetMaxSizeDataChar() * 1) + eprosima::fastcdr::Cdr::alignment(current_alignment, 1);
+
+
+
+    return current_alignment - initial_alignment;
+}
+
+size_t DataChar::getCdrSerializedSize(
+        const DataChar& data,
+        size_t current_alignment)
+{
+    (void)data;
+    size_t initial_alignment = current_alignment;
+
+
+    current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
+
+    if (data.value().size() > 0)
+    {
+        current_alignment += (data.value().size() * 1) + eprosima::fastcdr::Cdr::alignment(current_alignment, 1);
+    }
+
+
+
+    return current_alignment - initial_alignment;
+}
+
+void DataChar::serialize(
+        eprosima::fastcdr::Cdr& scdr) const
+{
+
+    scdr << m_value;
+}
+
+void DataChar::deserialize(
+        eprosima::fastcdr::Cdr& dcdr)
+{
+
+    dcdr >> m_value;}
+
+/*!
+ * @brief This function copies the value in member value
+ * @param _value New value to be copied in member value
+ */
+void DataChar::value(
+        const std::vector<char>& _value)
+{
+    m_value = _value;
+}
+
+/*!
+ * @brief This function moves the value in member value
+ * @param _value New value to be moved in member value
+ */
+void DataChar::value(
+        std::vector<char>&& _value)
+{
+    m_value = std::move(_value);
+}
+
+/*!
+ * @brief This function returns a constant reference to member value
+ * @return Constant reference to member value
+ */
+const std::vector<char>& DataChar::value() const
+{
+    return m_value;
+}
+
+/*!
+ * @brief This function returns a reference to member value
+ * @return Reference to member value
+ */
+std::vector<char>& DataChar::value()
+{
+    return m_value;
+}
+
+size_t DataChar::getKeyMaxCdrSerializedSize(
+        size_t current_alignment)
+{
+    size_t current_align = current_alignment;
+
+
+
+    return current_align;
+}
+
+bool DataChar::isKeyDefined()
+{
+    return false;
+}
+
+void DataChar::serializeKey(
+        eprosima::fastcdr::Cdr& scdr) const
+{
+    (void) scdr;
+     
+}
+
 DataCollectionChar::DataCollectionChar()
 {
-    // m_value com.eprosima.idl.parser.typecode.SequenceTypeCode@2a40cd94
+    // m_value com.eprosima.idl.parser.typecode.SequenceTypeCode@1a052a00
 
-    // m_quality com.eprosima.idl.parser.typecode.SequenceTypeCode@f4168b8
+    // m_quality com.eprosima.idl.parser.typecode.SequenceTypeCode@4d826d77
 
 
     // Just to register all known types
@@ -770,9 +924,10 @@ size_t DataCollectionChar::getMaxCdrSerializedSize(
 
     current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
 
-    current_alignment += (scada_ate::typetopics::GetMaxSizeDataCollectionChar() * 1) + eprosima::fastcdr::Cdr::alignment(current_alignment, 1);
 
-
+    for(size_t a = 0; a < scada_ate::typetopics::GetMaxSizeDataCollectionChar(); ++a)
+    {
+        current_alignment += DataChar::getMaxCdrSerializedSize(current_alignment);}
 
     current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
 
@@ -794,12 +949,10 @@ size_t DataCollectionChar::getCdrSerializedSize(
 
     current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
 
-    if (data.value().size() > 0)
+
+    for(size_t a = 0; a < data.value().size(); ++a)
     {
-        current_alignment += (data.value().size() * 1) + eprosima::fastcdr::Cdr::alignment(current_alignment, 1);
-    }
-
-
+        current_alignment += DataChar::getCdrSerializedSize(data.value().at(a), current_alignment);}
 
     current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
 
@@ -835,7 +988,7 @@ void DataCollectionChar::deserialize(
  * @param _value New value to be copied in member value
  */
 void DataCollectionChar::value(
-        const std::vector<char>& _value)
+        const std::vector<DataChar>& _value)
 {
     m_value = _value;
 }
@@ -845,7 +998,7 @@ void DataCollectionChar::value(
  * @param _value New value to be moved in member value
  */
 void DataCollectionChar::value(
-        std::vector<char>&& _value)
+        std::vector<DataChar>&& _value)
 {
     m_value = std::move(_value);
 }
@@ -854,7 +1007,7 @@ void DataCollectionChar::value(
  * @brief This function returns a constant reference to member value
  * @return Constant reference to member value
  */
-const std::vector<char>& DataCollectionChar::value() const
+const std::vector<DataChar>& DataCollectionChar::value() const
 {
     return m_value;
 }
@@ -863,7 +1016,7 @@ const std::vector<char>& DataCollectionChar::value() const
  * @brief This function returns a reference to member value
  * @return Reference to member value
  */
-std::vector<char>& DataCollectionChar::value()
+std::vector<DataChar>& DataCollectionChar::value()
 {
     return m_value;
 }
@@ -931,17 +1084,17 @@ void DataCollectionChar::serializeKey(
 
 DDSData::DDSData()
 {
-    // m_time_source com.eprosima.idl.parser.typecode.PrimitiveTypeCode@1e67a849
+    // m_time_source com.eprosima.idl.parser.typecode.PrimitiveTypeCode@36f0f1be
     m_time_source = 0;
-    // m_time_service com.eprosima.idl.parser.typecode.PrimitiveTypeCode@57d5872c
+    // m_time_service com.eprosima.idl.parser.typecode.PrimitiveTypeCode@157632c9
     m_time_service = 0;
-    // m_data_int com.eprosima.fastdds.idl.parser.typecode.StructTypeCode@667a738
+    // m_data_int com.eprosima.fastdds.idl.parser.typecode.StructTypeCode@6ee12bac
 
-    // m_data_float com.eprosima.fastdds.idl.parser.typecode.StructTypeCode@36f0f1be
+    // m_data_float com.eprosima.fastdds.idl.parser.typecode.StructTypeCode@55040f2f
 
-    // m_data_double com.eprosima.fastdds.idl.parser.typecode.StructTypeCode@157632c9
+    // m_data_double com.eprosima.fastdds.idl.parser.typecode.StructTypeCode@64c87930
 
-    // m_data_char com.eprosima.fastdds.idl.parser.typecode.StructTypeCode@6ee12bac
+    // m_data_char com.eprosima.fastdds.idl.parser.typecode.StructTypeCode@400cff1a
 
 
     // Just to register all known types

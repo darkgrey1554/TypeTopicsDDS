@@ -20,9 +20,14 @@ struct DataCollectionDouble
 	sequence<char> quality;
 };
 
-struct DataCollectionChar
+struct DataChar
 {
 	sequence<char> value;
+};
+
+struct DataCollectionChar
+{
+	sequence<DataChar> value;
 	sequence<char> quality;
 };
 

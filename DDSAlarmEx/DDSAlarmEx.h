@@ -60,13 +60,6 @@ class Cdr;
 } // namespace fastcdr
 } // namespace eprosima
 
-
-/*!
- * @brief This class represents the structure Alarm defined by the user in the IDL file.
- * @ingroup DDSALARMEX
- *
- */
-
 namespace scada_ate
 {
     namespace typetopics
@@ -76,6 +69,10 @@ namespace scada_ate
     }
 }
 
+/*!
+ * @brief This class represents the structure Alarm defined by the user in the IDL file.
+ * @ingroup DDSALARMEX
+ */
 class Alarm
 {
 public:
@@ -136,6 +133,25 @@ public:
      * @return Reference to member time_source
      */
     eProsima_user_DllExport int64_t& time_source();
+
+    /*!
+     * @brief This function sets a value in member id_tag
+     * @param _id_tag New value for member id_tag
+     */
+    eProsima_user_DllExport void id_tag(
+            uint32_t _id_tag);
+
+    /*!
+     * @brief This function returns the value of member id_tag
+     * @return Value of member id_tag
+     */
+    eProsima_user_DllExport uint32_t id_tag() const;
+
+    /*!
+     * @brief This function returns a reference to member id_tag
+     * @return Reference to member id_tag
+     */
+    eProsima_user_DllExport uint32_t& id_tag();
 
     /*!
      * @brief This function sets a value in member value
@@ -236,6 +252,7 @@ public:
 private:
 
     int64_t m_time_source;
+    uint32_t m_id_tag;
     char m_value;
     char m_quality;
 };

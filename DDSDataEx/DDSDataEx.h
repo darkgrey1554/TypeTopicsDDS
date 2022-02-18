@@ -60,12 +60,6 @@ class Cdr;
 } // namespace fastcdr
 } // namespace eprosima
 
-
-/*!
- * @brief This class represents the structure DataExInt defined by the user in the IDL file.
- * @ingroup DDSDATAEX
- */
-
 namespace scada_ate
 {
     namespace typetopics
@@ -83,6 +77,10 @@ namespace scada_ate
     }
 }
 
+/*!
+ * @brief This class represents the structure DataExInt defined by the user in the IDL file.
+ * @ingroup DDSDATAEX
+ */
 class DataExInt
 {
 public:
@@ -725,24 +723,30 @@ public:
     eProsima_user_DllExport uint32_t& id_tag();
 
     /*!
-     * @brief This function sets a value in member value
-     * @param _value New value for member value
+     * @brief This function copies the value in member value
+     * @param _value New value to be copied in member value
      */
     eProsima_user_DllExport void value(
-            char _value);
+            const std::vector<char>& _value);
 
     /*!
-     * @brief This function returns the value of member value
-     * @return Value of member value
+     * @brief This function moves the value in member value
+     * @param _value New value to be moved in member value
      */
-    eProsima_user_DllExport char value() const;
+    eProsima_user_DllExport void value(
+            std::vector<char>&& _value);
+
+    /*!
+     * @brief This function returns a constant reference to member value
+     * @return Constant reference to member value
+     */
+    eProsima_user_DllExport const std::vector<char>& value() const;
 
     /*!
      * @brief This function returns a reference to member value
      * @return Reference to member value
      */
-    eProsima_user_DllExport char& value();
-
+    eProsima_user_DllExport std::vector<char>& value();
     /*!
      * @brief This function sets a value in member quality
      * @param _quality New value for member quality
@@ -824,7 +828,7 @@ private:
 
     int64_t m_time_source;
     uint32_t m_id_tag;
-    char m_value;
+    std::vector<char> m_value;
     char m_quality;
 };
 /*!

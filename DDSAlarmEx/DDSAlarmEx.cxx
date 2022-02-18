@@ -49,11 +49,13 @@ namespace scada_ate
 
 Alarm::Alarm()
 {
-    // m_time_source com.eprosima.idl.parser.typecode.PrimitiveTypeCode@67b467e9
+    // m_time_source com.eprosima.idl.parser.typecode.PrimitiveTypeCode@481a15ff
     m_time_source = 0;
-    // m_value com.eprosima.idl.parser.typecode.PrimitiveTypeCode@47db50c5
+    // m_id_tag com.eprosima.idl.parser.typecode.PrimitiveTypeCode@78186a70
+    m_id_tag = 0;
+    // m_value com.eprosima.idl.parser.typecode.PrimitiveTypeCode@306279ee
     m_value = 0;
-    // m_quality com.eprosima.idl.parser.typecode.PrimitiveTypeCode@5c072e3f
+    // m_quality com.eprosima.idl.parser.typecode.PrimitiveTypeCode@545997b1
     m_quality = 0;
 
     // Just to register all known types
@@ -65,12 +67,14 @@ Alarm::~Alarm()
 
 
 
+
 }
 
 Alarm::Alarm(
         const Alarm& x)
 {
     m_time_source = x.m_time_source;
+    m_id_tag = x.m_id_tag;
     m_value = x.m_value;
     m_quality = x.m_quality;
 }
@@ -79,6 +83,7 @@ Alarm::Alarm(
         Alarm&& x)
 {
     m_time_source = x.m_time_source;
+    m_id_tag = x.m_id_tag;
     m_value = x.m_value;
     m_quality = x.m_quality;
 }
@@ -88,6 +93,7 @@ Alarm& Alarm::operator =(
 {
 
     m_time_source = x.m_time_source;
+    m_id_tag = x.m_id_tag;
     m_value = x.m_value;
     m_quality = x.m_quality;
 
@@ -99,6 +105,7 @@ Alarm& Alarm::operator =(
 {
 
     m_time_source = x.m_time_source;
+    m_id_tag = x.m_id_tag;
     m_value = x.m_value;
     m_quality = x.m_quality;
 
@@ -112,6 +119,9 @@ size_t Alarm::getMaxCdrSerializedSize(
 
 
     current_alignment += 8 + eprosima::fastcdr::Cdr::alignment(current_alignment, 8);
+
+
+    current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
 
 
     current_alignment += 1 + eprosima::fastcdr::Cdr::alignment(current_alignment, 1);
@@ -135,6 +145,9 @@ size_t Alarm::getCdrSerializedSize(
     current_alignment += 8 + eprosima::fastcdr::Cdr::alignment(current_alignment, 8);
 
 
+    current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
+
+
     current_alignment += 1 + eprosima::fastcdr::Cdr::alignment(current_alignment, 1);
 
 
@@ -150,6 +163,7 @@ void Alarm::serialize(
 {
 
     scdr << m_time_source;
+    scdr << m_id_tag;
     scdr << m_value;
     scdr << m_quality;
 
@@ -160,6 +174,7 @@ void Alarm::deserialize(
 {
 
     dcdr >> m_time_source;
+    dcdr >> m_id_tag;
     dcdr >> m_value;
     dcdr >> m_quality;
 }
@@ -190,6 +205,34 @@ int64_t Alarm::time_source() const
 int64_t& Alarm::time_source()
 {
     return m_time_source;
+}
+
+/*!
+ * @brief This function sets a value in member id_tag
+ * @param _id_tag New value for member id_tag
+ */
+void Alarm::id_tag(
+        uint32_t _id_tag)
+{
+    m_id_tag = _id_tag;
+}
+
+/*!
+ * @brief This function returns the value of member id_tag
+ * @return Value of member id_tag
+ */
+uint32_t Alarm::id_tag() const
+{
+    return m_id_tag;
+}
+
+/*!
+ * @brief This function returns a reference to member id_tag
+ * @return Reference to member id_tag
+ */
+uint32_t& Alarm::id_tag()
+{
+    return m_id_tag;
 }
 
 /*!
@@ -259,6 +302,7 @@ size_t Alarm::getKeyMaxCdrSerializedSize(
 
 
 
+
     return current_align;
 }
 
@@ -271,14 +315,14 @@ void Alarm::serializeKey(
         eprosima::fastcdr::Cdr& scdr) const
 {
     (void) scdr;
-       
+        
 }
 
 DDSExAlarm::DDSExAlarm()
 {
-    // m_time_service com.eprosima.idl.parser.typecode.PrimitiveTypeCode@69b794e2
+    // m_time_service com.eprosima.idl.parser.typecode.PrimitiveTypeCode@35fc6dc4
     m_time_service = 0;
-    // m_alarms com.eprosima.idl.parser.typecode.SequenceTypeCode@3f200884
+    // m_alarms com.eprosima.idl.parser.typecode.SequenceTypeCode@7fe8ea47
 
 
     // Just to register all known types
@@ -337,7 +381,7 @@ size_t DDSExAlarm::getMaxCdrSerializedSize(
     current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
 
 
-    for(size_t a = 0; a < 100; ++a)
+    for(size_t a = 0; a < scada_ate::typetopics::GetMaxSizeDDSAlarmExVectorAlarms(); ++a)
     {
         current_alignment += Alarm::getMaxCdrSerializedSize(current_alignment);}
 
