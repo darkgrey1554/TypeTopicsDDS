@@ -1,0 +1,16 @@
+/// <summary>
+/// Tipoc alarms extended
+/// </summary>
+
+struct Alarm
+{
+	long long time_source;
+	char value;
+	char quality;
+};
+
+struct DDSExAlarm
+{
+	long long time_service;
+	sequence<Alarm> alarms;
+};
