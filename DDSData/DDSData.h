@@ -71,10 +71,10 @@ namespace scada_ate
         void SetMaxSizeDataChar(size_t size);
 
         size_t GetMaxSizeDataCollectionInt();
-        size_t GetMaxDataCollectionFloat();
+        size_t GetMaxSizeDataCollectionFloat();
         size_t GetMaxSizeDataCollectionDouble();
         size_t GetMaxSizeDataCollectionChar();
-        size_t SetMaxSizeDataChar();
+        size_t GetMaxSizeDataChar();
 
     }
 }
