@@ -35,6 +35,18 @@ using namespace eprosima::fastcdr::exception;
 
 #include <utility>
 
+namespace scada_ate
+{
+    namespace typetopics
+    {
+        size_t MaxSizeDDSAlarmExVectorAlarms = 0;
+
+        void SetMaxSizeDDSAlarmExVectorAlarms(size_t size) { MaxSizeDDSAlarmExVectorAlarms = size; };
+        size_t GetMaxSizeDDSAlarmExVectorAlarms() { return MaxSizeDDSAlarmExVectorAlarms; };
+
+    }
+}
+
 Alarm::Alarm()
 {
     // m_time_source com.eprosima.idl.parser.typecode.PrimitiveTypeCode@149494d8
