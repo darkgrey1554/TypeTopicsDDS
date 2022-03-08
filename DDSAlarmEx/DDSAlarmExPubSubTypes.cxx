@@ -168,20 +168,20 @@ bool AlarmPubSubType::getKey(
     return true;
 }
 
-DDSExAlarmPubSubType::DDSExAlarmPubSubType()
+DDSAlarmExPubSubType::DDSAlarmExPubSubType()
 {
-    setName("DDSExAlarm");
-    auto type_size = DDSExAlarm::getMaxCdrSerializedSize();
+    setName("DDSAlarmEx");
+    auto type_size = DDSAlarmEx::getMaxCdrSerializedSize();
     type_size += eprosima::fastcdr::Cdr::alignment(type_size, 4); /* possible submessage alignment */
     m_typeSize = static_cast<uint32_t>(type_size) + 4; /*encapsulation*/
-    m_isGetKeyDefined = DDSExAlarm::isKeyDefined();
-    size_t keyLength = DDSExAlarm::getKeyMaxCdrSerializedSize() > 16 ?
-            DDSExAlarm::getKeyMaxCdrSerializedSize() : 16;
+    m_isGetKeyDefined = DDSAlarmEx::isKeyDefined();
+    size_t keyLength = DDSAlarmEx::getKeyMaxCdrSerializedSize() > 16 ?
+            DDSAlarmEx::getKeyMaxCdrSerializedSize() : 16;
     m_keyBuffer = reinterpret_cast<unsigned char*>(malloc(keyLength));
     memset(m_keyBuffer, 0, keyLength);
 }
 
-DDSExAlarmPubSubType::~DDSExAlarmPubSubType()
+DDSAlarmExPubSubType::~DDSAlarmExPubSubType()
 {
     if (m_keyBuffer != nullptr)
     {
@@ -189,11 +189,11 @@ DDSExAlarmPubSubType::~DDSExAlarmPubSubType()
     }
 }
 
-bool DDSExAlarmPubSubType::serialize(
+bool DDSAlarmExPubSubType::serialize(
         void* data,
         SerializedPayload_t* payload)
 {
-    DDSExAlarm* p_type = static_cast<DDSExAlarm*>(data);
+    DDSAlarmEx* p_type = static_cast<DDSAlarmEx*>(data);
 
     // Object that manages the raw buffer.
     eprosima::fastcdr::FastBuffer fastbuffer(reinterpret_cast<char*>(payload->data), payload->max_size);
@@ -218,12 +218,12 @@ bool DDSExAlarmPubSubType::serialize(
     return true;
 }
 
-bool DDSExAlarmPubSubType::deserialize(
+bool DDSAlarmExPubSubType::deserialize(
         SerializedPayload_t* payload,
         void* data)
 {
     //Convert DATA to pointer of your type
-    DDSExAlarm* p_type = static_cast<DDSExAlarm*>(data);
+    DDSAlarmEx* p_type = static_cast<DDSAlarmEx*>(data);
 
     // Object that manages the raw buffer.
     eprosima::fastcdr::FastBuffer fastbuffer(reinterpret_cast<char*>(payload->data), payload->length);
@@ -248,28 +248,28 @@ bool DDSExAlarmPubSubType::deserialize(
     return true;
 }
 
-std::function<uint32_t()> DDSExAlarmPubSubType::getSerializedSizeProvider(
+std::function<uint32_t()> DDSAlarmExPubSubType::getSerializedSizeProvider(
         void* data)
 {
     return [data]() -> uint32_t
            {
-               return static_cast<uint32_t>(type::getCdrSerializedSize(*static_cast<DDSExAlarm*>(data))) +
+               return static_cast<uint32_t>(type::getCdrSerializedSize(*static_cast<DDSAlarmEx*>(data))) +
                       4u /*encapsulation*/;
            };
 }
 
-void* DDSExAlarmPubSubType::createData()
+void* DDSAlarmExPubSubType::createData()
 {
-    return reinterpret_cast<void*>(new DDSExAlarm());
+    return reinterpret_cast<void*>(new DDSAlarmEx());
 }
 
-void DDSExAlarmPubSubType::deleteData(
+void DDSAlarmExPubSubType::deleteData(
         void* data)
 {
-    delete(reinterpret_cast<DDSExAlarm*>(data));
+    delete(reinterpret_cast<DDSAlarmEx*>(data));
 }
 
-bool DDSExAlarmPubSubType::getKey(
+bool DDSAlarmExPubSubType::getKey(
         void* data,
         InstanceHandle_t* handle,
         bool force_md5)
@@ -279,16 +279,16 @@ bool DDSExAlarmPubSubType::getKey(
         return false;
     }
 
-    DDSExAlarm* p_type = static_cast<DDSExAlarm*>(data);
+    DDSAlarmEx* p_type = static_cast<DDSAlarmEx*>(data);
 
     // Object that manages the raw buffer.
     eprosima::fastcdr::FastBuffer fastbuffer(reinterpret_cast<char*>(m_keyBuffer),
-            DDSExAlarm::getKeyMaxCdrSerializedSize());
+            DDSAlarmEx::getKeyMaxCdrSerializedSize());
 
     // Object that serializes the data.
     eprosima::fastcdr::Cdr ser(fastbuffer, eprosima::fastcdr::Cdr::BIG_ENDIANNESS);
     p_type->serializeKey(ser);
-    if (force_md5 || DDSExAlarm::getKeyMaxCdrSerializedSize() > 16)
+    if (force_md5 || DDSAlarmEx::getKeyMaxCdrSerializedSize() > 16)
     {
         m_md5.init();
         m_md5.update(m_keyBuffer, static_cast<unsigned int>(ser.getSerializedDataLength()));

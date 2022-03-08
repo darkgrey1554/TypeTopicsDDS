@@ -59,10 +59,10 @@ eProsima_user_DllExport const TypeObject* GetAlarmObject(bool complete = false);
 eProsima_user_DllExport const TypeObject* GetMinimalAlarmObject();
 eProsima_user_DllExport const TypeObject* GetCompleteAlarmObject();
 
-eProsima_user_DllExport const TypeIdentifier* GetDDSExAlarmIdentifier(bool complete = false);
-eProsima_user_DllExport const TypeObject* GetDDSExAlarmObject(bool complete = false);
-eProsima_user_DllExport const TypeObject* GetMinimalDDSExAlarmObject();
-eProsima_user_DllExport const TypeObject* GetCompleteDDSExAlarmObject();
+eProsima_user_DllExport const TypeIdentifier* GetDDSAlarmExIdentifier(bool complete = false);
+eProsima_user_DllExport const TypeObject* GetDDSAlarmExObject(bool complete = false);
+eProsima_user_DllExport const TypeObject* GetMinimalDDSAlarmExObject();
+eProsima_user_DllExport const TypeObject* GetCompleteDDSAlarmExObject();
 
 
 #endif // _DDSALARMEX_TYPE_OBJECT_H_

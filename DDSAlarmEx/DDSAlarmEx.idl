@@ -11,7 +11,7 @@ struct Alarm
 	char quality;
 };
 
-struct DDSExAlarm
+struct DDSAlarmEx
 {
 	long long time_service;
 	sequence<Alarm> alarms;

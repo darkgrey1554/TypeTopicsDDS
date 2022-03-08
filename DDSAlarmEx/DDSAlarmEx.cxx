@@ -318,7 +318,7 @@ void Alarm::serializeKey(
         
 }
 
-DDSExAlarm::DDSExAlarm()
+DDSAlarmEx::DDSAlarmEx()
 {
     // m_time_service com.eprosima.idl.parser.typecode.PrimitiveTypeCode@4461c7e3
     m_time_service = 0;
@@ -329,28 +329,28 @@ DDSExAlarm::DDSExAlarm()
     registerDDSAlarmExTypes();
 }
 
-DDSExAlarm::~DDSExAlarm()
+DDSAlarmEx::~DDSAlarmEx()
 {
 
 
 }
 
-DDSExAlarm::DDSExAlarm(
-        const DDSExAlarm& x)
+DDSAlarmEx::DDSAlarmEx(
+        const DDSAlarmEx& x)
 {
     m_time_service = x.m_time_service;
     m_alarms = x.m_alarms;
 }
 
-DDSExAlarm::DDSExAlarm(
-        DDSExAlarm&& x)
+DDSAlarmEx::DDSAlarmEx(
+        DDSAlarmEx&& x)
 {
     m_time_service = x.m_time_service;
     m_alarms = std::move(x.m_alarms);
 }
 
-DDSExAlarm& DDSExAlarm::operator =(
-        const DDSExAlarm& x)
+DDSAlarmEx& DDSAlarmEx::operator =(
+        const DDSAlarmEx& x)
 {
 
     m_time_service = x.m_time_service;
@@ -359,8 +359,8 @@ DDSExAlarm& DDSExAlarm::operator =(
     return *this;
 }
 
-DDSExAlarm& DDSExAlarm::operator =(
-        DDSExAlarm&& x)
+DDSAlarmEx& DDSAlarmEx::operator =(
+        DDSAlarmEx&& x)
 {
 
     m_time_service = x.m_time_service;
@@ -369,7 +369,7 @@ DDSExAlarm& DDSExAlarm::operator =(
     return *this;
 }
 
-size_t DDSExAlarm::getMaxCdrSerializedSize(
+size_t DDSAlarmEx::getMaxCdrSerializedSize(
         size_t current_alignment)
 {
     size_t initial_alignment = current_alignment;
@@ -390,8 +390,8 @@ size_t DDSExAlarm::getMaxCdrSerializedSize(
     return current_alignment - initial_alignment;
 }
 
-size_t DDSExAlarm::getCdrSerializedSize(
-        const DDSExAlarm& data,
+size_t DDSAlarmEx::getCdrSerializedSize(
+        const DDSAlarmEx& data,
         size_t current_alignment)
 {
     (void)data;
@@ -412,7 +412,7 @@ size_t DDSExAlarm::getCdrSerializedSize(
     return current_alignment - initial_alignment;
 }
 
-void DDSExAlarm::serialize(
+void DDSAlarmEx::serialize(
         eprosima::fastcdr::Cdr& scdr) const
 {
 
@@ -421,7 +421,7 @@ void DDSExAlarm::serialize(
 
 }
 
-void DDSExAlarm::deserialize(
+void DDSAlarmEx::deserialize(
         eprosima::fastcdr::Cdr& dcdr)
 {
 
@@ -433,7 +433,7 @@ void DDSExAlarm::deserialize(
  * @brief This function sets a value in member time_service
  * @param _time_service New value for member time_service
  */
-void DDSExAlarm::time_service(
+void DDSAlarmEx::time_service(
         int64_t _time_service)
 {
     m_time_service = _time_service;
@@ -443,7 +443,7 @@ void DDSExAlarm::time_service(
  * @brief This function returns the value of member time_service
  * @return Value of member time_service
  */
-int64_t DDSExAlarm::time_service() const
+int64_t DDSAlarmEx::time_service() const
 {
     return m_time_service;
 }
@@ -452,7 +452,7 @@ int64_t DDSExAlarm::time_service() const
  * @brief This function returns a reference to member time_service
  * @return Reference to member time_service
  */
-int64_t& DDSExAlarm::time_service()
+int64_t& DDSAlarmEx::time_service()
 {
     return m_time_service;
 }
@@ -461,7 +461,7 @@ int64_t& DDSExAlarm::time_service()
  * @brief This function copies the value in member alarms
  * @param _alarms New value to be copied in member alarms
  */
-void DDSExAlarm::alarms(
+void DDSAlarmEx::alarms(
         const std::vector<Alarm>& _alarms)
 {
     m_alarms = _alarms;
@@ -471,7 +471,7 @@ void DDSExAlarm::alarms(
  * @brief This function moves the value in member alarms
  * @param _alarms New value to be moved in member alarms
  */
-void DDSExAlarm::alarms(
+void DDSAlarmEx::alarms(
         std::vector<Alarm>&& _alarms)
 {
     m_alarms = std::move(_alarms);
@@ -481,7 +481,7 @@ void DDSExAlarm::alarms(
  * @brief This function returns a constant reference to member alarms
  * @return Constant reference to member alarms
  */
-const std::vector<Alarm>& DDSExAlarm::alarms() const
+const std::vector<Alarm>& DDSAlarmEx::alarms() const
 {
     return m_alarms;
 }
@@ -490,12 +490,12 @@ const std::vector<Alarm>& DDSExAlarm::alarms() const
  * @brief This function returns a reference to member alarms
  * @return Reference to member alarms
  */
-std::vector<Alarm>& DDSExAlarm::alarms()
+std::vector<Alarm>& DDSAlarmEx::alarms()
 {
     return m_alarms;
 }
 
-size_t DDSExAlarm::getKeyMaxCdrSerializedSize(
+size_t DDSAlarmEx::getKeyMaxCdrSerializedSize(
         size_t current_alignment)
 {
     size_t current_align = current_alignment;
@@ -507,12 +507,12 @@ size_t DDSExAlarm::getKeyMaxCdrSerializedSize(
     return current_align;
 }
 
-bool DDSExAlarm::isKeyDefined()
+bool DDSAlarmEx::isKeyDefined()
 {
     return false;
 }
 
-void DDSExAlarm::serializeKey(
+void DDSAlarmEx::serializeKey(
         eprosima::fastcdr::Cdr& scdr) const
 {
     (void) scdr;

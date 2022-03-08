@@ -97,18 +97,18 @@ public:
     unsigned char* m_keyBuffer;
 };
 /*!
- * @brief This class represents the TopicDataType of the type DDSExAlarm defined by the user in the IDL file.
+ * @brief This class represents the TopicDataType of the type DDSAlarmEx defined by the user in the IDL file.
  * @ingroup DDSALARMEX
  */
-class DDSExAlarmPubSubType : public eprosima::fastdds::dds::TopicDataType
+class DDSAlarmExPubSubType : public eprosima::fastdds::dds::TopicDataType
 {
 public:
 
-    typedef DDSExAlarm type;
+    typedef DDSAlarmEx type;
 
-    eProsima_user_DllExport DDSExAlarmPubSubType();
+    eProsima_user_DllExport DDSAlarmExPubSubType();
 
-    eProsima_user_DllExport virtual ~DDSExAlarmPubSubType();
+    eProsima_user_DllExport virtual ~DDSAlarmExPubSubType();
 
     eProsima_user_DllExport virtual bool serialize(
             void* data,

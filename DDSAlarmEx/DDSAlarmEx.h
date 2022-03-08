@@ -257,50 +257,50 @@ private:
     char m_quality;
 };
 /*!
- * @brief This class represents the structure DDSExAlarm defined by the user in the IDL file.
+ * @brief This class represents the structure DDSAlarmEx defined by the user in the IDL file.
  * @ingroup DDSALARMEX
  */
-class DDSExAlarm
+class DDSAlarmEx
 {
 public:
 
     /*!
      * @brief Default constructor.
      */
-    eProsima_user_DllExport DDSExAlarm();
+    eProsima_user_DllExport DDSAlarmEx();
 
     /*!
      * @brief Default destructor.
      */
-    eProsima_user_DllExport ~DDSExAlarm();
+    eProsima_user_DllExport ~DDSAlarmEx();
 
     /*!
      * @brief Copy constructor.
-     * @param x Reference to the object DDSExAlarm that will be copied.
+     * @param x Reference to the object DDSAlarmEx that will be copied.
      */
-    eProsima_user_DllExport DDSExAlarm(
-            const DDSExAlarm& x);
+    eProsima_user_DllExport DDSAlarmEx(
+            const DDSAlarmEx& x);
 
     /*!
      * @brief Move constructor.
-     * @param x Reference to the object DDSExAlarm that will be copied.
+     * @param x Reference to the object DDSAlarmEx that will be copied.
      */
-    eProsima_user_DllExport DDSExAlarm(
-            DDSExAlarm&& x);
+    eProsima_user_DllExport DDSAlarmEx(
+            DDSAlarmEx&& x);
 
     /*!
      * @brief Copy assignment.
-     * @param x Reference to the object DDSExAlarm that will be copied.
+     * @param x Reference to the object DDSAlarmEx that will be copied.
      */
-    eProsima_user_DllExport DDSExAlarm& operator =(
-            const DDSExAlarm& x);
+    eProsima_user_DllExport DDSAlarmEx& operator =(
+            const DDSAlarmEx& x);
 
     /*!
      * @brief Move assignment.
-     * @param x Reference to the object DDSExAlarm that will be copied.
+     * @param x Reference to the object DDSAlarmEx that will be copied.
      */
-    eProsima_user_DllExport DDSExAlarm& operator =(
-            DDSExAlarm&& x);
+    eProsima_user_DllExport DDSAlarmEx& operator =(
+            DDSAlarmEx&& x);
 
     /*!
      * @brief This function sets a value in member time_service
@@ -363,7 +363,7 @@ public:
      * @return Serialized size.
      */
     eProsima_user_DllExport static size_t getCdrSerializedSize(
-            const DDSExAlarm& data,
+            const DDSAlarmEx& data,
             size_t current_alignment = 0);
 
 

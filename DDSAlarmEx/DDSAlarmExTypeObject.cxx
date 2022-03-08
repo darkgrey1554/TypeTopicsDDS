@@ -44,8 +44,8 @@ void registerDDSAlarmExTypes()
     factory->add_type_object("Alarm", GetAlarmIdentifier(true), GetAlarmObject(true));
     factory->add_type_object("Alarm", GetAlarmIdentifier(false), GetAlarmObject(false));
 
-    factory->add_type_object("DDSExAlarm", GetDDSExAlarmIdentifier(true), GetDDSExAlarmObject(true));
-    factory->add_type_object("DDSExAlarm", GetDDSExAlarmIdentifier(false), GetDDSExAlarmObject(false));
+    factory->add_type_object("DDSAlarmEx", GetDDSAlarmExIdentifier(true), GetDDSAlarmExObject(true));
+    factory->add_type_object("DDSAlarmEx", GetDDSAlarmExIdentifier(false), GetDDSAlarmExObject(false));
 
 }
 
@@ -368,36 +368,36 @@ const TypeObject* GetCompleteAlarmObject()
     return TypeObjectFactory::get_instance()->get_type_object("Alarm", true);
 }
 
-const TypeIdentifier* GetDDSExAlarmIdentifier(bool complete)
+const TypeIdentifier* GetDDSAlarmExIdentifier(bool complete)
 {
-    const TypeIdentifier * c_identifier = TypeObjectFactory::get_instance()->get_type_identifier("DDSExAlarm", complete);
+    const TypeIdentifier * c_identifier = TypeObjectFactory::get_instance()->get_type_identifier("DDSAlarmEx", complete);
     if (c_identifier != nullptr && (!complete || c_identifier->_d() == EK_COMPLETE))
     {
         return c_identifier;
     }
 
-    GetDDSExAlarmObject(complete); // Generated inside
-    return TypeObjectFactory::get_instance()->get_type_identifier("DDSExAlarm", complete);
+    GetDDSAlarmExObject(complete); // Generated inside
+    return TypeObjectFactory::get_instance()->get_type_identifier("DDSAlarmEx", complete);
 }
 
-const TypeObject* GetDDSExAlarmObject(bool complete)
+const TypeObject* GetDDSAlarmExObject(bool complete)
 {
-    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("DDSExAlarm", complete);
+    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("DDSAlarmEx", complete);
     if (c_type_object != nullptr)
     {
         return c_type_object;
     }
     else if (complete)
     {
-        return GetCompleteDDSExAlarmObject();
+        return GetCompleteDDSAlarmExObject();
     }
     //else
-    return GetMinimalDDSExAlarmObject();
+    return GetMinimalDDSAlarmExObject();
 }
 
-const TypeObject* GetMinimalDDSExAlarmObject()
+const TypeObject* GetMinimalDDSAlarmExObject()
 {
-    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("DDSExAlarm", false);
+    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("DDSAlarmEx", false);
     if (c_type_object != nullptr)
     {
         return c_type_object;
@@ -486,14 +486,14 @@ const TypeObject* GetMinimalDDSExAlarmObject()
         identifier.equivalence_hash()[i] = objectHash.digest[i];
     }
 
-    TypeObjectFactory::get_instance()->add_type_object("DDSExAlarm", &identifier, type_object);
+    TypeObjectFactory::get_instance()->add_type_object("DDSAlarmEx", &identifier, type_object);
     delete type_object;
-    return TypeObjectFactory::get_instance()->get_type_object("DDSExAlarm", false);
+    return TypeObjectFactory::get_instance()->get_type_object("DDSAlarmEx", false);
 }
 
-const TypeObject* GetCompleteDDSExAlarmObject()
+const TypeObject* GetCompleteDDSAlarmExObject()
 {
-    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("DDSExAlarm", true);
+    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("DDSAlarmEx", true);
     if (c_type_object != nullptr && c_type_object->_d() == EK_COMPLETE)
     {
         return c_type_object;
@@ -550,7 +550,7 @@ const TypeObject* GetCompleteDDSExAlarmObject()
 
 
     // Header
-    type_object->complete().struct_type().header().detail().type_name("DDSExAlarm");
+    type_object->complete().struct_type().header().detail().type_name("DDSAlarmEx");
     // TODO inheritance
 
 
@@ -576,7 +576,7 @@ const TypeObject* GetCompleteDDSExAlarmObject()
         identifier.equivalence_hash()[i] = objectHash.digest[i];
     }
 
-    TypeObjectFactory::get_instance()->add_type_object("DDSExAlarm", &identifier, type_object);
+    TypeObjectFactory::get_instance()->add_type_object("DDSAlarmEx", &identifier, type_object);
     delete type_object;
-    return TypeObjectFactory::get_instance()->get_type_object("DDSExAlarm", true);
+    return TypeObjectFactory::get_instance()->get_type_object("DDSAlarmEx", true);
 }
