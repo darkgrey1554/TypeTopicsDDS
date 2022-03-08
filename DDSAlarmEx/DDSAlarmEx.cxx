@@ -35,27 +35,15 @@ using namespace eprosima::fastcdr::exception;
 
 #include <utility>
 
-namespace scada_ate
-{
-    namespace typetopics
-    {
-        size_t MaxSizeDDSAlarmExVectorAlarms = 0;
-
-        void SetMaxSizeDDSAlarmExVectorAlarms(size_t size) { MaxSizeDDSAlarmExVectorAlarms = size; };
-        size_t GetMaxSizeDDSAlarmExVectorAlarms() { return MaxSizeDDSAlarmExVectorAlarms; };
-
-    }
-}
-
 Alarm::Alarm()
 {
-    // m_time_source com.eprosima.idl.parser.typecode.PrimitiveTypeCode@481a15ff
+    // m_time_source com.eprosima.idl.parser.typecode.PrimitiveTypeCode@149494d8
     m_time_source = 0;
-    // m_id_tag com.eprosima.idl.parser.typecode.PrimitiveTypeCode@78186a70
+    // m_id_tag com.eprosima.idl.parser.typecode.PrimitiveTypeCode@710726a3
     m_id_tag = 0;
-    // m_value com.eprosima.idl.parser.typecode.PrimitiveTypeCode@306279ee
+    // m_value com.eprosima.idl.parser.typecode.PrimitiveTypeCode@646007f4
     m_value = 0;
-    // m_quality com.eprosima.idl.parser.typecode.PrimitiveTypeCode@545997b1
+    // m_quality com.eprosima.idl.parser.typecode.PrimitiveTypeCode@481a15ff
     m_quality = 0;
 
     // Just to register all known types
@@ -320,9 +308,9 @@ void Alarm::serializeKey(
 
 DDSExAlarm::DDSExAlarm()
 {
-    // m_time_service com.eprosima.idl.parser.typecode.PrimitiveTypeCode@35fc6dc4
+    // m_time_service com.eprosima.idl.parser.typecode.PrimitiveTypeCode@4461c7e3
     m_time_service = 0;
-    // m_alarms com.eprosima.idl.parser.typecode.SequenceTypeCode@7fe8ea47
+    // m_alarms com.eprosima.idl.parser.typecode.SequenceTypeCode@351d0846
 
 
     // Just to register all known types
@@ -381,7 +369,7 @@ size_t DDSExAlarm::getMaxCdrSerializedSize(
     current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
 
 
-    for(size_t a = 0; a < scada_ate::typetopics::GetMaxSizeDDSAlarmExVectorAlarms(); ++a)
+    for(size_t a = 0; a < 100; ++a)
     {
         current_alignment += Alarm::getMaxCdrSerializedSize(current_alignment);}
 

@@ -60,14 +60,6 @@ class Cdr;
 } // namespace fastcdr
 } // namespace eprosima
 
-namespace scada_ate
-{
-    namespace typetopics
-    {
-        void SetMaxSizeDDSAlarmExVectorAlarms(size_t size);
-        size_t GetMaxSizeDDSAlarmExVectorAlarms();
-    }
-}
 
 /*!
  * @brief This class represents the structure Alarm defined by the user in the IDL file.
