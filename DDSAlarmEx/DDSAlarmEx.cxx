@@ -381,9 +381,10 @@ size_t DDSExAlarm::getMaxCdrSerializedSize(
     current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
 
 
-    for(size_t a = 0; a < 100; ++a)
+    for (size_t a = 0; a < scada_ate::typetopics::GetMaxSizeDDSAlarmExVectorAlarms(); ++a)
     {
-        current_alignment += Alarm::getMaxCdrSerializedSize(current_alignment);}
+        current_alignment += Alarm::getMaxCdrSerializedSize(current_alignment);
+    }
 
 
     return current_alignment - initial_alignment;
