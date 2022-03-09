@@ -50,13 +50,13 @@ namespace scada_ate
         void SetMaxSizeDDSDataExVectorFloat(size_t size) { MaxSizeDDSDataExVectorFloat = size; };
         void SetMaxSizeDDSDataExVectorDouble(size_t size) { MaxSizeDDSDataExVectorDouble = size; };
         void SetMaxSizeDDSDataExVectorChar(size_t size) { MaxSizeDDSDataExVectorChar = size; };
-        void SetMaxSizeDataExVectorChar(size_t size) { MaxSizeDataExVectorChar = size; };
+        void SetMaxSizeDataExVectorChar(size_t size) { MaxSizeDataExCharVectorChar = size; };
 
         size_t GetMaxSizeDDSDataExVectorInt() { return MaxSizeDDSDataExVectorInt; };
         size_t GetMaxSizeDDSDataExVectorFloat() { return MaxSizeDDSDataExVectorFloat; };
         size_t GetMaxSizeDDSDataExVectorDouble() { return MaxSizeDDSDataExVectorDouble; };
         size_t GetMaxSizeDDSDataExVectorChar() { return MaxSizeDDSDataExVectorChar; };
-        size_t GetMaxSizeDataExVectorChar() { return MaxSizeDataExVectorChar; };
+        size_t GetMaxSizeDataExVectorChar() { return MaxSizeDataExCharVectorChar; };
 
     }
 }
